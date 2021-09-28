@@ -18,6 +18,7 @@ class employ1 extends fullTime {
     public double total(double nom , int days){
         return value = nom * days;
     }
+    @Override
     public double getTotal() {
         return value;
     }
@@ -31,6 +32,7 @@ class employ2 extends fullTime {
         return value = nom * days;
     }
         
+    @Override
         public double getTotal() {
         return value;
     }
