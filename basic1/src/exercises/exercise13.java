@@ -17,8 +17,8 @@ public class exercise13 {
         // }
 
         for(int i = 1; i < cars.size(); i++){
-            if(cars.contains(i)){
-                System.out.println(i+"exist data");
+            if(cars.contains("jazz")){
+                System.out.println("exist data");
             }else{
                 System.out.println("exist not data");
             }
