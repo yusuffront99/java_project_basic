@@ -1,6 +1,7 @@
 package swing;
 
 import javax.swing.ButtonGroup;
+import javax.swing.JButton;
 import javax.swing.JComboBox;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
@@ -23,7 +24,7 @@ public class lesson11 {
         labelKbuku.setBounds(20,80,80,30);
         frame.add(labelKbuku);
         JTextField txtKBuku = new JTextField();
-        txtKBuku.setBounds(150, 80, 150, 30);
+        txtKBuku.setBounds(150, 80, 180, 30);
         frame.add(txtKBuku);
 
         // nama buku
@@ -31,7 +32,7 @@ public class lesson11 {
         labelNbuku.setBounds(20,125,150,30);
         frame.add(labelNbuku);
         JTextField txtNBuku = new JTextField();
-        txtNBuku.setBounds(150, 125, 150, 30);
+        txtNBuku.setBounds(150, 125, 180, 30);
         frame.add(txtNBuku);
 
         // membership radiobuttons
@@ -58,7 +59,7 @@ public class lesson11 {
         biaya.setBounds(20,225,150,30);
         frame.add(biaya);
         JTextField txtBiaya = new JTextField();
-        txtBiaya.setBounds(150, 225, 150, 30);
+        txtBiaya.setBounds(150, 225, 180, 30);
         frame.add(txtBiaya);
 
         // combobox option
@@ -100,7 +101,7 @@ public class lesson11 {
         totalBiaya.setBounds(20,370,150,30);
         frame.add(totalBiaya);
         JTextField inpTotBiaya = new JTextField();
-        inpTotBiaya.setBounds(150, 370, 150, 30);
+        inpTotBiaya.setBounds(150, 370, 180, 30);
         frame.add(inpTotBiaya);
 
         // total biaya
@@ -108,7 +109,7 @@ public class lesson11 {
         jumlahBayar.setBounds(20,425,150,30);
         frame.add(jumlahBayar);
         JTextField inpJBayar = new JTextField();
-        inpJBayar.setBounds(150, 425, 150, 30);
+        inpJBayar.setBounds(150, 425, 180, 30);
         frame.add(inpJBayar);
 
         // total biaya
@@ -116,8 +117,17 @@ public class lesson11 {
         kembalian.setBounds(20,470,150,30);
         frame.add(kembalian);
         JTextField inpKembalian = new JTextField();
-        inpKembalian.setBounds(150, 470, 150, 30);
+        inpKembalian.setBounds(150, 470, 180, 30);
         frame.add(inpKembalian);
+
+        // button
+        JButton simpan = new JButton("Simpan");
+        simpan.setBounds(150,515,90,30);
+        frame.add(simpan);
+
+        JButton reset = new JButton("Reset");
+        reset.setBounds(250,515,80,30);
+        frame.add(reset);
 
         
 
