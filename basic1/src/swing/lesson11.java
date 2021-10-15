@@ -1,7 +1,9 @@
 package swing;
 
- import javax.swing.JFrame;
- import javax.swing.JLabel;
+import javax.swing.ButtonGroup;
+import javax.swing.JComboBox;
+import javax.swing.JFrame;
+import javax.swing.JLabel;
 import javax.swing.JRadioButton;
 import javax.swing.JTextField;
 
@@ -32,7 +34,7 @@ public class lesson11 {
         txtNBuku.setBounds(150, 125, 150, 30);
         frame.add(txtNBuku);
 
-        // membership
+        // membership radiobuttons
         JLabel labelMember = new JLabel("Membership");
         labelMember.setBounds(20, 170, 150,30);
         frame.add(labelMember);
@@ -45,6 +47,43 @@ public class lesson11 {
         click2.setText("Umum");
         click2.setBounds(230,170, 80,30);
         frame.add(click2);
+
+        // group buttons
+        ButtonGroup btnGroup = new ButtonGroup();
+        btnGroup.add(click1);
+        btnGroup.add(click2);
+
+        // biaya
+        JLabel biaya = new JLabel("Biaya per Hari");
+        biaya.setBounds(20,225,150,30);
+        frame.add(biaya);
+        JTextField txtBiaya = new JTextField();
+        txtBiaya.setBounds(150, 225, 150, 30);
+        frame.add(txtBiaya);
+
+        // combobox option
+        JLabel tglPinjam = new JLabel("Tanggal Pinjam");
+        tglPinjam.setBounds(20, 270,150,30);
+        frame.add(tglPinjam);
+
+        // ComboBox tgl
+        String hari[] = new String[31];
+        for (int i = 0; i < hari.length; i++) {
+            hari[i] = Integer.toString(i+1);
+        }
+        JComboBox cbHari = new JComboBox(hari);
+        cbHari.setBounds(150,270,50,30);
+        frame.add(cbHari);
+
+        // ComboBox Bulan
+        String bulan[] = {"jan","feb","Mar","Apr","Mei","Jun","Jul","Ags","Sep","Okt","Nov","Des"};
+        JComboBox cbBulan = new JComboBox(bulan);
+        cbBulan.setBounds(215,270,50,30);
+        frame.add(cbBulan);
+
+        JTextField txtTahun = new JTextField();
+        txtTahun.setBounds(280, 270, 50, 30);
+        frame.add(txtTahun);
 
         frame.setSize(400,500);
         frame.setLayout(null);
