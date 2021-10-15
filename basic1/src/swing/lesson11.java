@@ -85,7 +85,43 @@ public class lesson11 {
         txtTahun.setBounds(280, 270, 50, 30);
         frame.add(txtTahun);
 
-        frame.setSize(400,500);
+        // Label Lama Pinjam
+        JLabel lPinjam = new JLabel("Lama Pinjam");
+        lPinjam.setBounds(20,325,150,30);
+        frame.add(lPinjam);
+
+        String LamaPinjam[] = {"1","2","3","4","5","6","7","8","9","10","11","12"};
+        JComboBox cbLamaPinjam = new JComboBox(LamaPinjam);
+        cbLamaPinjam.setBounds(150,325,110,30);
+        frame.add(cbLamaPinjam);
+
+        // total biaya
+        JLabel totalBiaya = new JLabel("Total Biaya");
+        totalBiaya.setBounds(20,370,150,30);
+        frame.add(totalBiaya);
+        JTextField inpTotBiaya = new JTextField();
+        inpTotBiaya.setBounds(150, 370, 150, 30);
+        frame.add(inpTotBiaya);
+
+        // total biaya
+        JLabel jumlahBayar = new JLabel("Total Biaya");
+        jumlahBayar.setBounds(20,425,150,30);
+        frame.add(jumlahBayar);
+        JTextField inpJBayar = new JTextField();
+        inpJBayar.setBounds(150, 425, 150, 30);
+        frame.add(inpJBayar);
+
+        // total biaya
+        JLabel kembalian = new JLabel("Kembalian");
+        kembalian.setBounds(20,470,150,30);
+        frame.add(kembalian);
+        JTextField inpKembalian = new JTextField();
+        inpKembalian.setBounds(150, 470, 150, 30);
+        frame.add(inpKembalian);
+
+        
+
+        frame.setSize(400,650);
         frame.setLayout(null);
         frame.setVisible(true);
     }
