@@ -4,8 +4,19 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import javax.swing.*;
 
+
 public class Perpustakaan implements ActionListener {
+
     public static void main(String[] args) {
+        new Perpustakaan();
+    }
+
+    // constructror
+    public Perpustakaan() {
+        initComponent();
+    }
+
+    private void initComponent() {
         // container
         JFrame frame = new JFrame("Aplikasi Perpusatakaan");
         frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
@@ -102,7 +113,7 @@ public class Perpustakaan implements ActionListener {
         frame.add(inpTotBiaya);
 
         // total biaya
-        JLabel jumlahBayar = new JLabel("Total Biaya");
+        JLabel jumlahBayar = new JLabel("Jumlah Bayar");
         jumlahBayar.setBounds(20,425,150,30);
         frame.add(jumlahBayar);
         JTextField inpJBayar = new JTextField();
@@ -126,17 +137,33 @@ public class Perpustakaan implements ActionListener {
         reset.setBounds(250,515,80,30);
         frame.add(reset);
 
-        
-
         frame.setSize(400,650);
         frame.setLayout(null);
         frame.setVisible(true);
+        // ==========END COMPONENTS
+
+        // Event =========================
+        simpan.addActionListener(this);
+        reset.addActionListener(this);
+        simpan.setActionCommand("simpan");
+        reset.setActionCommand("reset");
+
     }
+    
 
     @Override
     public void actionPerformed(ActionEvent e) {
-        // TODO Auto-generated method stub
-        
+        String command = e.getActionCommand();
+
+        switch(command){
+            case "simpan" : JOptionPane.showConfirmDialog(null, "Data Tersimpan");
+            break;
+
+            case "reset" : JOptionPane.showMessageDialog(null, "Data Berhasil direset");
+            break;
+
+            default: System.out.println("Tidak ada");
+        }
     }
-}    
+}
 
