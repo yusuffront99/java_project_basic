@@ -1,7 +1,10 @@
 package project1;
 
 import java.awt.event.ActionEvent;
+import java.awt.event.KeyListener;
 import java.awt.event.ActionListener;
+import java.awt.event.KeyEvent;
+
 import javax.swing.*;
 
 
@@ -147,6 +150,36 @@ public class Perpustakaan implements ActionListener {
         reset.addActionListener(this);
         simpan.setActionCommand("simpan");
         reset.setActionCommand("reset");
+
+        txtKBuku.addKeyListener(new KeyListener(){
+
+            @Override
+            public void keyTyped(KeyEvent e) {
+                
+                
+            }
+
+            @Override
+            public void keyPressed(KeyEvent e) {
+                if(e.getKeyCode() == KeyEvent.VK_ENTER){
+                    String buku[][] = {{"BK001", "Java"}, {"BK002","Python"},{"BK003","Pascal"}};
+
+                    for(int i = 0; i < buku.length; i++){
+                        if(txtKBuku.getText().equals(buku[i][0])){
+                            txtNBuku.setText(buku[i][1]);
+                            break;
+                        }
+                    }
+                }
+            }
+
+            @Override
+            public void keyReleased(KeyEvent e) {
+                
+                
+            }
+
+        });
 
     }
     
