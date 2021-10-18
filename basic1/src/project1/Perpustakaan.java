@@ -44,6 +44,7 @@ public class Perpustakaan implements ActionListener {
         JTextField txtNBuku = new JTextField();
         txtNBuku.setBounds(150, 125, 180, 30);
         frame.add(txtNBuku);
+        txtNBuku.setEnabled(false);
 
         // membership radiobuttons
         JLabel labelMember = new JLabel("Membership");
@@ -176,6 +177,8 @@ public class Perpustakaan implements ActionListener {
 
                     if(find.equals("Not Found")){
                         JOptionPane.showMessageDialog(null, "Kode Tidak Ditemukan");
+                        txtKBuku.setText("");
+                        txtNBuku.setText("");
                     }
                 }
             }
