@@ -164,11 +164,18 @@ public class Perpustakaan implements ActionListener {
                 if(e.getKeyCode() == KeyEvent.VK_ENTER){
                     String buku[][] = {{"BK001", "Java"}, {"BK002","Python"},{"BK003","Pascal"}};
 
+                    String find = "Not Found";
+
                     for(int i = 0; i < buku.length; i++){
                         if(txtKBuku.getText().equals(buku[i][0])){
                             txtNBuku.setText(buku[i][1]);
+                            find = "Data Ada";
                             break;
                         }
+                    }
+
+                    if(find.equals("Not Found")){
+                        JOptionPane.showMessageDialog(null, "Kode Tidak Ditemukan");
                     }
                 }
             }
