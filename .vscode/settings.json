@@ -1,0 +1,7 @@
+{
+    "java.project.sourcePaths": [
+        "basic1/src",
+        "Student/src/student",
+        "Students"
+    ]
+}
