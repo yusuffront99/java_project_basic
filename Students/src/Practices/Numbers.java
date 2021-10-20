@@ -7,6 +7,7 @@ import javax.swing.JTextArea;
 import javax.swing.JTextField;
 
 import java.awt.GridLayout;
+import java.awt.BorderLayout;
 
 public class Numbers extends JFrame {
     
@@ -27,12 +28,18 @@ public class Numbers extends JFrame {
     JPanel panel;
     JTextField inp;
     GridLayout family;
+    JFrame frame;
 
     public Numbers(){
         super("Numbers");
         setSize(260,260);
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-        panel = new JPanel();
+        inp = new JTextField();
+        frame = new JFrame();
+        inp.setLayout(new BorderLayout());
+        add(inp, BorderLayout.NORTH);
+
+        panel = new JPanel(); 
         family = new GridLayout(4,2);
 
         panel.setLayout(family);
