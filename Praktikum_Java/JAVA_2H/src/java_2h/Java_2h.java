@@ -13,6 +13,9 @@ import java.sql.SQLException;
  */
 public class Java_2h {
     public static void main(String[] args) throws SQLException {
-        new ConfigDB().getConnect();
+//        new ConfigDB().getConnect();
+
+    ConfigDB praktikum = new ConfigDB();
+    praktikum.SimpanFilmStatement("01", "Ada Cinta", "romance", "2019", "ID", "25");
     }
 }

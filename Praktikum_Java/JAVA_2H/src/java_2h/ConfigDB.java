@@ -9,6 +9,7 @@ import java.sql.Driver;
 import java.sql.DriverManager;
 import java.sql.Connection;
 import java.sql.SQLException;
+import java.sql.Statement;
 
 /**
  *
@@ -33,6 +34,21 @@ public class ConfigDB {
         }
         
         return DriverManager.getConnection(url,user,pass);
+    }
+    
+    //SEMI MANUAL 
+    public void SimpanFilmStatement(String KodeFilm, String Judul, String Genre, String Tahun, String Asal, String Stok){
+        try {
+            String SQLSimpan = "INSERT INTO film (KodeFilm, Judul, Genre, Tahun, Asal, Stok) VALUES ('"+KodeFilm+"','"+Judul+"','"+Genre+"','"+Tahun+"', '"+Asal+"','"+Stok+"')";
+            Statement perintah = getConnect().createStatement();
+            int i = perintah.executeUpdate(SQLSimpan);
+            System.out.println(i);
+            perintah.close();
+            getConnect().close();
+            
+        } catch (Exception e) {
+            System.out.println(e.toString());
+        }
     }
    
 }
