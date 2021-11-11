@@ -3,19 +3,17 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package java_2h;
+package application;
 
 import java.sql.Driver;
 import java.sql.DriverManager;
 import java.sql.Connection;
 import java.sql.SQLException;
-//Statement for show
 import java.sql.Statement;
-//Prepared for edit show
 import java.sql.PreparedStatement;
-//Get data to database
 import java.sql.ResultSet;
 import javax.swing.JOptionPane;
+import javax.swing.*;
 
 /**
  *
@@ -27,22 +25,22 @@ public class ConfigDB {
     private String user = "root";
     private String pass = "";
     
-    //CONSTRUCTOR    
     public ConfigDB(){}
-
-    public Connection getConnect() throws SQLException{
+    
+    
+    //==== Create Connection to Database
+    public Connection getConnect() throws SQLException {
         try {
             Driver myDriver = new com.mysql.jdbc.Driver();
             DriverManager.registerDriver(myDriver);
-            System.out.println("Connected successfully");
+            System.out.println("Connection Successfully");
         } catch (Exception e) {
             System.out.println(e.toString());
         }
-        
         return DriverManager.getConnection(url,user,pass);
     }
     
-    //========================== DINAMIS ================================
+    //==== DOUBLE KEY CHECK ===========================================
     public boolean getDupKey(String table, String Primary, String Isi){
         boolean hasil = false;
         //checking        
@@ -64,7 +62,7 @@ public class ConfigDB {
         return hasil;
     }
     
-    //========================== SEMI MANUAL ============================
+    //==== INSERT DATA SEMI MANUAL
     public void SimpanFilmStatement(String KodeFilm, String Judul, String Genre, String Tahun, String Asal, String Stok){
         try {
             String SQLSimpan = "INSERT INTO film (KodeFilm, Judul, Genre, Tahun, Asal, Stok) VALUES ('"+KodeFilm+"','"+Judul+"','"+Genre+"','"+Tahun+"', '"+Asal+"','"+Stok+"')";
@@ -80,12 +78,7 @@ public class ConfigDB {
         }
     }
     
-   
-    
-    //============================ HAPUS
-    //============================ UPDATE  
-    
-    
+    //==== INSERT DATA DINAMIS PREPARED
     public void SimpanFilmPrepared(String KodeFilm, String Judul, String Genre, int Tahun, String Asal, int Stok){
         try {
             String SQLSimpan = "INSERT INTO film (KodeFilm, Judul, Genre, Tahun, Asal, Stok) VALUES (?,?,?,?,?,?)";
@@ -109,96 +102,109 @@ public class ConfigDB {
     }
     
     
+    //==== HAPUS DINAMIS
+    public void HapusDinamis(String Table, String Primary, String KodeFilm){
+        try {
+            String SQLHapus = "DELETE FROM "+Table+" WHERE "+Primary+" = '"+KodeFilm+"'";
+            Statement commandDelete = getConnect().createStatement();
+            commandDelete.executeUpdate(SQLHapus);
+            commandDelete.close();
+            getConnect().close();
+            JOptionPane.showMessageDialog(null, "Data Deleted Successfully");
+        } catch (Exception e) {
+            System.err.println(e.toString());
+        }
+    }
     
-    //============================    CRUD FULL DINAMIS ===================================
-    //============    FIELD DATA
-   public String getFieldArray(String[] Fields){
+//==================== METHOD DINAMIS FULL ============================================================================================
+    
+    //*********************** Fields
+    public String getFieldArray(String[] Fields){
         String hasil = "";
-        int deteksi = Fields.length - 1; // deteksi array terakhir
+        int detection = Fields.length - 1;
         try {
             for (int i = 0; i < Fields.length; i++) {
-                if (i==deteksi){
+                if(i==detection){
                     hasil = hasil + Fields[i];
                 }else{
-                  hasil = hasil + Fields[i]+",";   
-                }
-               
+                    hasil  = hasil + Fields[i]+",";
+                }   
             }
         } catch (Exception e) {
-            System.out.println( e.toString());
+            System.out.println(e.toString());
         }
-        
         return "("+hasil+")";
     }
-    //============   Field Contents
-   public String getValueFieldArray(String[] Values){
+    
+    //*********************** Values
+    public String getValueArray(String[] Values){
         String hasil = "";
-        int deteksi = Values.length - 1;
+        int detection = Values.length - 1;
+        
         try {
             for (int i = 0; i < Values.length; i++) {
-                if (i == deteksi)
-                {
+                if(i==detection){
                     hasil = hasil +"'"+Values[i]+"'";
                 }else{
-                    hasil = hasil +"'"+Values[i]+"',";
+                    hasil = hasil +"'"+ Values[i]+"',";
+                }
+            } 
+        } catch (Exception e) {
+            System.out.println(e.toString());
+        }
+        return "("+hasil+")";   
+    }
+    
+    //**************************** INSERT DATA
+    public void simpanData(String Table, String[] Fields, String[] Values){
+        try {
+            String SQLSimpan = "INSERT INTO "+Table+""+getFieldArray(Fields)+" VALUES "+getValueArray(Values);
+            Statement command = getConnect().createStatement();
+            command.executeUpdate(SQLSimpan);
+            command.close();
+            getConnect().close();
+        } catch (Exception e) {
+            System.out.println(e.toString());
+        }
+    }
+    
+    //================ END INSERT DATA
+    
+   
+    //================ UPDATE DATA
+    public String getDoubleArrays(String[] Fields, String[] Values){
+        String hasil = "";
+        int detection = Fields.length - 1;
+        try {
+            for (int i = 0; i < Fields.length; i++) {
+                if(i==detection){
+                    hasil = hasil +Fields[i]+"='"+Values[i]+"'";
+                }else{
+                    hasil = hasil +Fields[i]+"='"+Values[i]+"',";
                 }
             }
         } catch (Exception e) {
-            System.out.println(e.toString());
+            JOptionPane.showMessageDialog(null, e.toString());
         }
-         return "("+hasil+")";        
+        return ""+hasil+"";
     }
-    //============ INSERT DATA
-    public void SimpanDinamis(String Tables, String[] Fields, String[] Values){
+    
+    //***************** Update Data
+    public void ubahData(String Table, String PrimaryKey, String Key, String[] Fields, String[] Values){
         try {
-            String SQLSimpan = "INSERT INTO "+Tables+" "+getFieldArray(Fields)+" VALUES "+getValueFieldArray(Values);
-            Statement perintah = getConnect().createStatement();
-            
-            //For SQLSImpan is put in Excecute Update           
-            perintah.executeUpdate(SQLSimpan);
-            perintah.close();
+            String SQLUpdate = "UPDATE "+Table+" SET "+getDoubleArrays(Fields, Values)+" WHERE "+PrimaryKey+"='"+Key+"'";
+            Statement Command = getConnect().createStatement();
+            Command.executeUpdate(SQLUpdate);
+            Command.close();
             getConnect().close();
-            JOptionPane.showMessageDialog(null, "Saved Successfully ");
-            
-        } catch (Exception e) {
-            System.out.println(e.toString());
-        }
-    }
-    
-    //===================== UPDATE DATA
-    public String getCombineValueFieldArray(String[] Fieldnya, String[] Valuenya){
-        String hasil = "";
-        int deteksi = Fieldnya.length - 1;
-        try {
-             for (int i = 0; i < Fieldnya.length; i++) {
-                 if (i == deteksi){
-                     hasil = hasil+Fieldnya[i]+"='"+Valuenya[i]+"'";
-                 }else{
-                     hasil = hasil+Fieldnya[i]+"='"+Valuenya[i]+"',";
-                 }
-                
-            }
+            JOptionPane.showMessageDialog(null, "Updated Data Successfully");
         } catch (Exception e) {
             JOptionPane.showMessageDialog(null, e.toString());
         }
-        
-        return hasil;
     }
+    //================ END UPDATE DATA
     
-    public void UbahDinamis(String Tabelnya, String Primarynya, String isiPrimary, String[] Fieldnya, String[] Valuenya){
-        
-        try {
-           String SQLUpdate ="UPDATE "+Tabelnya+" SET "+getCombineValueFieldArray(Fieldnya, Valuenya)+" WHERE "+Primarynya+"='"+isiPrimary+"'"; 
-           Statement perintah = getConnect().createStatement();
-           perintah.executeUpdate(SQLUpdate);
-           perintah.close();
-           getConnect().close();
-           JOptionPane.showMessageDialog(null, "Data Berhasil Diubah");
-        } catch (Exception e) {
-            JOptionPane.showMessageDialog(null, e.toString());
-        }
-        
-    }
-
+    
+    //================ SHOW DATABASE TO TABLE
    
 }
