@@ -2,6 +2,7 @@
     "java.project.sourcePaths": [
         "basic1/src",
         "Students",
-        "CelciustoFahrenhiet/src/GUI"
+        "CelciustoFahrenhiet/src/GUI",
+        "Codes/src/GUI/codes_2"
     ]
 }
