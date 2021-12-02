@@ -21,6 +21,7 @@ public class ApkBiodataOrganisasi extends javax.swing.JFrame {
      */
     public ApkBiodataOrganisasi() {
         initComponents();
+        setLocationRelativeTo(null);
     }
 
     /**
@@ -196,6 +197,11 @@ public class ApkBiodataOrganisasi extends javax.swing.JFrame {
         });
 
         bhapus.setText("Hapus");
+        bhapus.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                bhapusActionPerformed(evt);
+            }
+        });
 
         bsimpan.setText("Simpan");
         bsimpan.addActionListener(new java.awt.event.ActionListener() {
@@ -324,6 +330,10 @@ public class ApkBiodataOrganisasi extends javax.swing.JFrame {
 
     private void bexitActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_bexitActionPerformed
         // TODO add your handling code here:
+       int exit = JOptionPane.showConfirmDialog(null, "Apakah anda yakin keluar?","Konfirmasi Keluar", JOptionPane.YES_NO_OPTION);
+       if(exit == JOptionPane.YES_OPTION){
+           System.exit(0);
+       }
     }//GEN-LAST:event_bexitActionPerformed
 
     private void btampilkanActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btampilkanActionPerformed
@@ -349,29 +359,29 @@ public class ApkBiodataOrganisasi extends javax.swing.JFrame {
 
     private void cbBoldMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_cbBoldMouseClicked
         // TODO add your handling code here:
-//        Font bold = new Font("Arial",Font.BOLD,16);        
-//        Font unbold = new Font("Arial",Font.PLAIN,16);
-//        Font italic = new Font("Arial",Font.ITALIC,16);        
-//        Font unitalic = new Font("Arial",Font.PLAIN,16);
-//        
-//        if(cbBold.isSelected()){
-//            txtAll.setFont(bold);
-//        }else{
-//           txtAll.setFont(unbold); 
-//        }
+        Font bold = new Font("Arial",Font.BOLD,16);        
+        Font unbold = new Font("Arial",Font.PLAIN,16);
+        Font italic = new Font("Arial",Font.ITALIC,16);        
+        Font unitalic = new Font("Arial",Font.PLAIN,16);
+        
+        if(cbBold.isSelected()){
+            txtAll.setFont(bold);
+        }else{
+           txtAll.setFont(unbold); 
+        }
 
     }//GEN-LAST:event_cbBoldMouseClicked
 
     private void cbItalicMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_cbItalicMouseClicked
 //         TODO add your handling code here:
-//        Font italic = new Font("Arial",Font.ITALIC,16);        
-//        Font unitalic = new Font("Arial",Font.PLAIN,16);
-//        
-//        if(cbItalic.isSelected()){
-//            txtAll.setFont(italic);
-//        }else{
-//            txtAll.setFont(unitalic);
-//        }
+        Font italic = new Font("Arial",Font.ITALIC,16);        
+        Font unitalic = new Font("Arial",Font.PLAIN,16);
+        
+        if(cbItalic.isSelected()){
+            txtAll.setFont(italic);
+        }else{
+            txtAll.setFont(unitalic);
+        }
     }//GEN-LAST:event_cbItalicMouseClicked
 
     private void cbBoldActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cbBoldActionPerformed
@@ -386,8 +396,21 @@ public class ApkBiodataOrganisasi extends javax.swing.JFrame {
             JOptionPane.showMessageDialog(null, "Data berhasil disimpan","Success info", JOptionPane.CLOSED_OPTION);
             datafile.close();
         } catch (Exception e) {
+            System.out.println(e.toString());
         }
     }//GEN-LAST:event_bsimpanActionPerformed
+
+    private void bhapusActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_bhapusActionPerformed
+        // TODO add your handling code here:
+        txtnama.setText("");
+        txtalamat.setText("");
+        cbbpekerjaan.setSelectedIndex(0);
+        rbpria.setSelected(false);
+        rbwanita.setSelected(false);
+        cbBold.setSelected(false);
+        cbItalic.setSelected(false);
+        txtAll.setText("");
+    }//GEN-LAST:event_bhapusActionPerformed
 
     /**
      * @param args the command line arguments
