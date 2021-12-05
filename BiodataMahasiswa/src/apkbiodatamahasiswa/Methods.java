@@ -5,6 +5,7 @@
  */
 package apkbiodatamahasiswa;
 import javax.swing.JTable;
+import javax.swing.ComboBoxModel;
 import javax.swing.table.DefaultTableModel;
 
 /**
@@ -29,4 +30,5 @@ public class Methods {
             System.out.println(e.toString());
         }
     }
+    
 }

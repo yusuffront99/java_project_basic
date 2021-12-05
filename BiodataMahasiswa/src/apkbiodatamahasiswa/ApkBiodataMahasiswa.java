@@ -4,7 +4,10 @@
  * and open the template in the editor.
  */
 package apkbiodatamahasiswa;
+import java.util.ArrayList;
+import java.util.List;
 import javax.swing.JTable;
+import javax.swing.table.DefaultTableModel;
 /**
  * 
  *
@@ -21,7 +24,7 @@ public class ApkBiodataMahasiswa extends javax.swing.JFrame {
     public ApkBiodataMahasiswa() {
         initComponents();
         
-        new Methods().setTitleTable(jtblData, titles);
+        new Methods().setTitleTable(tblData, titles);
     }
 
     /**
@@ -44,8 +47,8 @@ public class ApkBiodataMahasiswa extends javax.swing.JFrame {
         txtphone = new javax.swing.JTextField();
         cbbjurusan = new javax.swing.JComboBox<>();
         jScrollPane1 = new javax.swing.JScrollPane();
-        jtblData = new javax.swing.JTable();
-        jButton1 = new javax.swing.JButton();
+        tblData = new javax.swing.JTable();
+        simpan = new javax.swing.JButton();
         jButton2 = new javax.swing.JButton();
         jButton3 = new javax.swing.JButton();
         jButton4 = new javax.swing.JButton();
@@ -69,7 +72,7 @@ public class ApkBiodataMahasiswa extends javax.swing.JFrame {
 
         cbbjurusan.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "-- Pilih Jurusan --", "Teknik Informatika", "Teknik Komputer", "Sistem Informasi" }));
 
-        jtblData.setModel(new javax.swing.table.DefaultTableModel(
+        tblData.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
                 {null, null, null, null},
                 {null, null, null, null},
@@ -80,9 +83,14 @@ public class ApkBiodataMahasiswa extends javax.swing.JFrame {
                 "Title 1", "Title 2", "Title 3", "Title 4"
             }
         ));
-        jScrollPane1.setViewportView(jtblData);
+        jScrollPane1.setViewportView(tblData);
 
-        jButton1.setText("Tambah");
+        simpan.setText("Tambah");
+        simpan.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                simpanMouseClicked(evt);
+            }
+        });
 
         jButton2.setText("Bersih");
 
@@ -111,7 +119,7 @@ public class ApkBiodataMahasiswa extends javax.swing.JFrame {
                 .addGap(48, 48, 48)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                     .addGroup(layout.createSequentialGroup()
-                        .addComponent(jButton1, javax.swing.GroupLayout.PREFERRED_SIZE, 120, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addComponent(simpan, javax.swing.GroupLayout.PREFERRED_SIZE, 120, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 52, Short.MAX_VALUE)
                         .addComponent(jButton2, javax.swing.GroupLayout.PREFERRED_SIZE, 120, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addGap(49, 49, 49)
@@ -168,7 +176,7 @@ public class ApkBiodataMahasiswa extends javax.swing.JFrame {
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                         .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 214, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addGap(39, 39, 39)
-                        .addComponent(jButton1, javax.swing.GroupLayout.PREFERRED_SIZE, 50, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addComponent(simpan, javax.swing.GroupLayout.PREFERRED_SIZE, 50, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addGroup(layout.createSequentialGroup()
                         .addGap(269, 269, 269)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
@@ -181,6 +189,21 @@ public class ApkBiodataMahasiswa extends javax.swing.JFrame {
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
+    private void simpanMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_simpanMouseClicked
+        // TODO add your handling code here:
+        
+        
+        DefaultTableModel DataModel = (DefaultTableModel) tblData.getModel();
+        List list = new ArrayList<>();
+        tblData.setAutoCreateColumnsFromModel(true);
+        String[] fields = {"txtnama","txtnpm","txtjurusan","txtalamat","txtphone"};
+        
+        for(int i = 0; i > fields.length; i++){
+            list.add(fields[i]+".getText");
+        }
+    }//GEN-LAST:event_simpanMouseClicked
+
+    
     /**
      * @param args the command line arguments
      */
@@ -218,7 +241,6 @@ public class ApkBiodataMahasiswa extends javax.swing.JFrame {
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JComboBox<String> cbbjurusan;
-    private javax.swing.JButton jButton1;
     private javax.swing.JButton jButton2;
     private javax.swing.JButton jButton3;
     private javax.swing.JButton jButton4;
@@ -233,7 +255,8 @@ public class ApkBiodataMahasiswa extends javax.swing.JFrame {
     private javax.swing.JMenu jMenu3;
     private javax.swing.JMenuBar jMenuBar1;
     private javax.swing.JScrollPane jScrollPane1;
-    private javax.swing.JTable jtblData;
+    private javax.swing.JButton simpan;
+    private javax.swing.JTable tblData;
     private javax.swing.JTextField txtalamat;
     private javax.swing.JTextField txtnama;
     private javax.swing.JTextField txtnpm;
