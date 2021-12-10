@@ -4,10 +4,15 @@
  * and open the template in the editor.
  */
 package apkbiodatamahasiswa;
+import java.io.BufferedWriter;
+import java.io.FileWriter;
 import java.util.ArrayList;
 import java.util.List;
+import javax.swing.JOptionPane;
 import javax.swing.JTable;
 import javax.swing.table.DefaultTableModel;
+import java.io.FileNotFoundException;
+import java.io.IOException;
 /**
  * 
  *
@@ -48,10 +53,10 @@ public class ApkBiodataMahasiswa extends javax.swing.JFrame {
         cbbjurusan = new javax.swing.JComboBox<>();
         jScrollPane1 = new javax.swing.JScrollPane();
         tblData = new javax.swing.JTable();
-        simpan = new javax.swing.JButton();
+        tambah = new javax.swing.JButton();
         jButton2 = new javax.swing.JButton();
         jButton3 = new javax.swing.JButton();
-        jButton4 = new javax.swing.JButton();
+        simpan = new javax.swing.JButton();
         jButton5 = new javax.swing.JButton();
         jMenuBar1 = new javax.swing.JMenuBar();
         jMenu1 = new javax.swing.JMenu();
@@ -85,10 +90,10 @@ public class ApkBiodataMahasiswa extends javax.swing.JFrame {
         ));
         jScrollPane1.setViewportView(tblData);
 
-        simpan.setText("Tambah");
-        simpan.addMouseListener(new java.awt.event.MouseAdapter() {
+        tambah.setText("Tambah");
+        tambah.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
-                simpanMouseClicked(evt);
+                tambahMouseClicked(evt);
             }
         });
 
@@ -96,7 +101,12 @@ public class ApkBiodataMahasiswa extends javax.swing.JFrame {
 
         jButton3.setText("Hapus");
 
-        jButton4.setText("Simpan");
+        simpan.setText("Simpan");
+        simpan.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                simpanActionPerformed(evt);
+            }
+        });
 
         jButton5.setText("Keluar");
 
@@ -119,13 +129,13 @@ public class ApkBiodataMahasiswa extends javax.swing.JFrame {
                 .addGap(48, 48, 48)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                     .addGroup(layout.createSequentialGroup()
-                        .addComponent(simpan, javax.swing.GroupLayout.PREFERRED_SIZE, 120, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addComponent(tambah, javax.swing.GroupLayout.PREFERRED_SIZE, 120, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 52, Short.MAX_VALUE)
                         .addComponent(jButton2, javax.swing.GroupLayout.PREFERRED_SIZE, 120, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addGap(49, 49, 49)
                         .addComponent(jButton3, javax.swing.GroupLayout.PREFERRED_SIZE, 120, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addGap(55, 55, 55)
-                        .addComponent(jButton4, javax.swing.GroupLayout.PREFERRED_SIZE, 120, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addComponent(simpan, javax.swing.GroupLayout.PREFERRED_SIZE, 120, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addComponent(jLabel4)
@@ -176,12 +186,12 @@ public class ApkBiodataMahasiswa extends javax.swing.JFrame {
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                         .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 214, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addGap(39, 39, 39)
-                        .addComponent(simpan, javax.swing.GroupLayout.PREFERRED_SIZE, 50, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addComponent(tambah, javax.swing.GroupLayout.PREFERRED_SIZE, 50, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addGroup(layout.createSequentialGroup()
                         .addGap(269, 269, 269)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                             .addComponent(jButton3, javax.swing.GroupLayout.PREFERRED_SIZE, 50, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(jButton4, javax.swing.GroupLayout.PREFERRED_SIZE, 50, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(simpan, javax.swing.GroupLayout.PREFERRED_SIZE, 50, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addComponent(jButton2, javax.swing.GroupLayout.PREFERRED_SIZE, 50, javax.swing.GroupLayout.PREFERRED_SIZE))))
                 .addContainerGap(30, Short.MAX_VALUE))
         );
@@ -189,19 +199,39 @@ public class ApkBiodataMahasiswa extends javax.swing.JFrame {
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
-    private void simpanMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_simpanMouseClicked
+    private void tambahMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tambahMouseClicked
         // TODO add your handling code here:
         
         
         DefaultTableModel DataModel = (DefaultTableModel) tblData.getModel();
         List list = new ArrayList<>();
         tblData.setAutoCreateColumnsFromModel(true);
-        String[] fields = {"txtnama","txtnpm","txtjurusan","txtalamat","txtphone"};
+        list.add(txtnama.getText());
+        list.add(txtnpm.getText());
+        list.add(cbbjurusan.getSelectedItem().toString());
+        list.add(txtalamat.getText());
+        list.add(txtphone.getText());
         
-        for(int i = 0; i > fields.length; i++){
-            list.add(fields[i]+".getText");
+        DataModel.addRow(list.toArray());
+        sum();
+    }//GEN-LAST:event_tambahMouseClicked
+
+    private void simpanActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_simpanActionPerformed
+        // TODO add your handling code here:
+        try {
+           StringBuffer addTD = new StringBuffer(); 
+           for(int row = 0; row < tblData.getRowCount(); row++){
+               for(int col = 0; col < tblData.getColumnCount(); col++){
+                   addTD.append(tblData.getValueAt(row, col)).append("\t");
+               }             
+               addTD.append(System.getProperty("line.separator"));
+           }
+           
+           new Methods().printFile("biomhs.txt", addTD);
+           JOptionPane.showMessageDialog(null, "Data Added successfully","Notif",JOptionPane.INFORMATION_MESSAGE);
+        } catch (Exception e) {
         }
-    }//GEN-LAST:event_simpanMouseClicked
+    }//GEN-LAST:event_simpanActionPerformed
 
     
     /**
@@ -243,7 +273,6 @@ public class ApkBiodataMahasiswa extends javax.swing.JFrame {
     private javax.swing.JComboBox<String> cbbjurusan;
     private javax.swing.JButton jButton2;
     private javax.swing.JButton jButton3;
-    private javax.swing.JButton jButton4;
     private javax.swing.JButton jButton5;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
@@ -256,10 +285,20 @@ public class ApkBiodataMahasiswa extends javax.swing.JFrame {
     private javax.swing.JMenuBar jMenuBar1;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JButton simpan;
+    private javax.swing.JButton tambah;
     private javax.swing.JTable tblData;
     private javax.swing.JTextField txtalamat;
     private javax.swing.JTextField txtnama;
     private javax.swing.JTextField txtnpm;
     private javax.swing.JTextField txtphone;
     // End of variables declaration//GEN-END:variables
+
+    private void sum() {
+        try {
+            JOptionPane.showConfirmDialog(null, "Data berhasil ditambahkan", "Alert Data", JOptionPane.CLOSED_OPTION);
+        } catch (Exception e) {
+            System.out.println(e.toString());
+        }
+    }
+    
 }

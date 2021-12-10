@@ -4,6 +4,11 @@
  * and open the template in the editor.
  */
 package apkbiodatamahasiswa;
+import java.io.BufferedWriter;
+import java.io.FileWriter;
+import java.io.IOException;
+import java.sql.ResultSet;
+import java.sql.Statement;
 import javax.swing.JTable;
 import javax.swing.ComboBoxModel;
 import javax.swing.table.DefaultTableModel;
@@ -13,22 +18,31 @@ import javax.swing.table.DefaultTableModel;
  * @author myusu
  */
 public class Methods {
+    
+    DefaultTableModel dtm = new DefaultTableModel();
     public Methods(){}
    
     public void setTitleTable(JTable table, String[] titles){
         try {
-            DefaultTableModel model = new DefaultTableModel();
-            table.setModel(model);
-            model.getDataVector().removeAllElements();
-            model.fireTableDataChanged();
+            table.setModel(dtm);
+            dtm.getDataVector().removeAllElements();
+            dtm.fireTableDataChanged();
             
             
             for (int i = 0; i < titles.length; i++) {
-                model.addColumn(titles[i]);
+                dtm.addColumn(titles[i]);
             }
         } catch (Exception e) {
             System.out.println(e.toString());
         }
     }
     
+    public void printFile(String FileName, StringBuffer FileTable) throws IOException{
+        BufferedWriter output = new BufferedWriter(new FileWriter(FileName));
+        output.write(FileTable.toString());
+        output.newLine();
+        output.flush();
+        output.close();
+    }
+   
 }
