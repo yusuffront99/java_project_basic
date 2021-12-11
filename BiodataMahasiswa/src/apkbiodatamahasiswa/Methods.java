@@ -11,6 +11,7 @@ import java.sql.ResultSet;
 import java.sql.Statement;
 import javax.swing.JTable;
 import javax.swing.ComboBoxModel;
+import javax.swing.JOptionPane;
 import javax.swing.table.DefaultTableModel;
 
 /**
@@ -43,6 +44,20 @@ public class Methods {
         output.newLine();
         output.flush();
         output.close();
+    }
+    
+    public void Hapus(String tbl, String split, String command){
+        try {
+            int delRows = JOptionPane.showConfirmDialog(null, "Are you sure deleted the data?", "Notif--Delete",JOptionPane.NO_OPTION);
+            
+            if(delRows == JOptionPane.YES_OPTION){
+                int x = Integer.parseInt("tbl"+"split"+"command");
+                dtm.removeRow(x);
+                JOptionPane.showMessageDialog(null, "Data Deleted Successfully","Alert--Delete",JOptionPane.INFORMATION_MESSAGE);
+            }
+        } catch (Exception e) {
+            System.out.println(e.toString());
+        }
     }
    
 }

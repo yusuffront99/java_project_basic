@@ -23,7 +23,7 @@ public class ApkBiodataMahasiswa extends javax.swing.JFrame {
     /**
      * Creates new form ApkBiodataMahasiswa
      */
-    
+   
     String[] titles = {"Nama","Npm", "Jurusan", "Alamat", "Telepon"};
     
     public ApkBiodataMahasiswa() {
@@ -54,8 +54,8 @@ public class ApkBiodataMahasiswa extends javax.swing.JFrame {
         jScrollPane1 = new javax.swing.JScrollPane();
         tblData = new javax.swing.JTable();
         tambah = new javax.swing.JButton();
-        jButton2 = new javax.swing.JButton();
-        jButton3 = new javax.swing.JButton();
+        clear = new javax.swing.JButton();
+        hapus = new javax.swing.JButton();
         simpan = new javax.swing.JButton();
         jButton5 = new javax.swing.JButton();
         jMenuBar1 = new javax.swing.JMenuBar();
@@ -97,9 +97,19 @@ public class ApkBiodataMahasiswa extends javax.swing.JFrame {
             }
         });
 
-        jButton2.setText("Bersih");
+        clear.setText("Bersih");
+        clear.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                clearActionPerformed(evt);
+            }
+        });
 
-        jButton3.setText("Hapus");
+        hapus.setText("Hapus");
+        hapus.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                hapusActionPerformed(evt);
+            }
+        });
 
         simpan.setText("Simpan");
         simpan.addActionListener(new java.awt.event.ActionListener() {
@@ -131,9 +141,9 @@ public class ApkBiodataMahasiswa extends javax.swing.JFrame {
                     .addGroup(layout.createSequentialGroup()
                         .addComponent(tambah, javax.swing.GroupLayout.PREFERRED_SIZE, 120, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 52, Short.MAX_VALUE)
-                        .addComponent(jButton2, javax.swing.GroupLayout.PREFERRED_SIZE, 120, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addComponent(clear, javax.swing.GroupLayout.PREFERRED_SIZE, 120, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addGap(49, 49, 49)
-                        .addComponent(jButton3, javax.swing.GroupLayout.PREFERRED_SIZE, 120, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addComponent(hapus, javax.swing.GroupLayout.PREFERRED_SIZE, 120, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addGap(55, 55, 55)
                         .addComponent(simpan, javax.swing.GroupLayout.PREFERRED_SIZE, 120, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
@@ -190,9 +200,9 @@ public class ApkBiodataMahasiswa extends javax.swing.JFrame {
                     .addGroup(layout.createSequentialGroup()
                         .addGap(269, 269, 269)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                            .addComponent(jButton3, javax.swing.GroupLayout.PREFERRED_SIZE, 50, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(hapus, javax.swing.GroupLayout.PREFERRED_SIZE, 50, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addComponent(simpan, javax.swing.GroupLayout.PREFERRED_SIZE, 50, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(jButton2, javax.swing.GroupLayout.PREFERRED_SIZE, 50, javax.swing.GroupLayout.PREFERRED_SIZE))))
+                            .addComponent(clear, javax.swing.GroupLayout.PREFERRED_SIZE, 50, javax.swing.GroupLayout.PREFERRED_SIZE))))
                 .addContainerGap(30, Short.MAX_VALUE))
         );
 
@@ -201,8 +211,6 @@ public class ApkBiodataMahasiswa extends javax.swing.JFrame {
 
     private void tambahMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tambahMouseClicked
         // TODO add your handling code here:
-        
-        
         DefaultTableModel DataModel = (DefaultTableModel) tblData.getModel();
         List list = new ArrayList<>();
         tblData.setAutoCreateColumnsFromModel(true);
@@ -230,8 +238,34 @@ public class ApkBiodataMahasiswa extends javax.swing.JFrame {
            new Methods().printFile("biomhs.txt", addTD);
            JOptionPane.showMessageDialog(null, "Data Added successfully","Notif",JOptionPane.INFORMATION_MESSAGE);
         } catch (Exception e) {
+            System.out.println(e.toString());
         }
     }//GEN-LAST:event_simpanActionPerformed
+
+    private void clearActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_clearActionPerformed
+        // TODO add your handling code here:
+        txtnama.setText("");
+        txtnpm.setText("");
+        cbbjurusan.setSelectedIndex(0);
+        txtalamat.setText("");
+        txtphone.setText("");
+    }//GEN-LAST:event_clearActionPerformed
+
+    private void hapusActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_hapusActionPerformed
+        // TODO add your haSndling code here:
+        DefaultTableModel dtm = (DefaultTableModel) tblData.getModel();
+         try {
+            int delRows = JOptionPane.showConfirmDialog(null, "Are you sure deleted the data?", "Notif--Delete",JOptionPane.YES_NO_OPTION);
+            
+            if(delRows == JOptionPane.YES_OPTION){
+                int x = tblData.getSelectedRow();
+                dtm.removeRow(x);
+                JOptionPane.showMessageDialog(null, "Data Deleted Successfully","Alert--Delete",JOptionPane.INFORMATION_MESSAGE);
+            }
+        } catch (Exception e) {
+            System.out.println(e.toString());
+        }
+    }//GEN-LAST:event_hapusActionPerformed
 
     
     /**
@@ -271,8 +305,8 @@ public class ApkBiodataMahasiswa extends javax.swing.JFrame {
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JComboBox<String> cbbjurusan;
-    private javax.swing.JButton jButton2;
-    private javax.swing.JButton jButton3;
+    private javax.swing.JButton clear;
+    private javax.swing.JButton hapus;
     private javax.swing.JButton jButton5;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
