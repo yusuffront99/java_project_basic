@@ -28,7 +28,7 @@ public class ApkBiodataMahasiswa extends javax.swing.JFrame {
     
     public ApkBiodataMahasiswa() {
         initComponents();
-        
+        setLocationRelativeTo(null);
         new Methods().setTitleTable(tblData, titles);
     }
 

@@ -5,6 +5,8 @@
  */
 package apkbank;
 
+import java.awt.event.KeyEvent;
+import javax.swing.JFrame;
 import javax.swing.JOptionPane;
 
 /**
@@ -22,6 +24,7 @@ public class BankFrame extends javax.swing.JFrame {
      */
     public BankFrame() {
         initComponents();
+        setLocationRelativeTo(null);
     }
 
     /**
@@ -76,6 +79,11 @@ public class BankFrame extends javax.swing.JFrame {
         });
 
         cek.setText("Cek Saldo");
+        cek.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                cekActionPerformed(evt);
+            }
+        });
 
         simpan.setText("Simpan Uang");
         simpan.addActionListener(new java.awt.event.ActionListener() {
@@ -92,6 +100,11 @@ public class BankFrame extends javax.swing.JFrame {
         });
 
         ambil.setText("Ambil Uang");
+        ambil.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                ambilActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
@@ -146,18 +159,41 @@ public class BankFrame extends javax.swing.JFrame {
           txtsaldo.setText(String.valueOf(saldo));
             
         } catch (Exception e) {
-            System.out.println(e.toString());
+            JOptionPane.showMessageDialog(null, "Silakan Masukkan angka 0-9", "Error Input", JOptionPane.ERROR_MESSAGE);
         }
        
     }//GEN-LAST:event_simpanActionPerformed
 
     private void jButton3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton3ActionPerformed
         // TODO add your handling code here:
+        dispose();
     }//GEN-LAST:event_jButton3ActionPerformed
 
     private void txtsaldoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtsaldoActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_txtsaldoActionPerformed
+
+    private void ambilActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_ambilActionPerformed
+        // TODO add your handling code here:
+        try {
+          input = Integer.parseInt(JOptionPane.showInputDialog("Masukkan Nominal : "));
+          hasil = saldo - input;
+          saldo=hasil;
+          txtsaldo.setText(String.valueOf(saldo));
+            
+        } catch (Exception e) {
+            JOptionPane.showMessageDialog(null, "Silakan Masukkan angka 0-9", "Error Input", JOptionPane.ERROR_MESSAGE);
+        }
+    }//GEN-LAST:event_ambilActionPerformed
+
+    private void cekActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cekActionPerformed
+        // TODO add your handling code here:
+         try {
+             JOptionPane.showMessageDialog(null, "Saldo Akhir anda "+saldo,"Info Saldo",JOptionPane.INFORMATION_MESSAGE);
+        } catch (Exception e) {
+            System.out.println(e.toString());
+        }
+    }//GEN-LAST:event_cekActionPerformed
 
     /**
      * @param args the command line arguments
