@@ -345,11 +345,21 @@ public class PenentuNilaiMahasiswa extends javax.swing.JFrame {
         lblrata.setText(String.valueOf(nilai));  
         lblnama.setText(txtNama.getText());
         
-       if((nilai >= 90)){
+        String[] hasil = {"lulus","tidak lulus"};
+        
+       if(nilai >= 90){
            lblgrade.setText("A");
+           lblhasil.setText(hasil[0]);
+       }else if(nilai >=80 && nilai <= 89){
+           lblgrade.setText("B");
+           lblhasil.setText(hasil[0]);
+       }else if(nilai >=70 && nilai <= 79){
+           lblgrade.setText("C");
+           lblhasil.setText(hasil[0]);
+       }else if(nilai < 70){
+           lblgrade.setText("D");
+           lblhasil.setText(hasil[1]);
        }
-       
-       lblhasil.setText(String.valueOf(lblgrade));
     }//GEN-LAST:event_btnHitungActionPerformed
 
     /**
