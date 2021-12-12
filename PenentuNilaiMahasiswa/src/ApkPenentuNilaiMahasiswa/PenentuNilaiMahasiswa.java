@@ -6,6 +6,11 @@
 
 package ApkPenentuNilaiMahasiswa;
 
+import static ApkPenentuNilaiMahasiswa.Filter.digitFilter;
+import java.io.BufferedWriter;
+import java.io.FileWriter;
+import javax.swing.JOptionPane;
+
 /**
  *
  * @author myusu
@@ -84,15 +89,30 @@ public class PenentuNilaiMahasiswa extends javax.swing.JFrame {
 
         txtUts.setFont(new java.awt.Font("Tahoma", 1, 20)); // NOI18N
         txtUts.setHorizontalAlignment(javax.swing.JTextField.CENTER);
+        txtUts.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyTyped(java.awt.event.KeyEvent evt) {
+                txtUtsKeyTyped(evt);
+            }
+        });
 
         txtTm.setFont(new java.awt.Font("Tahoma", 1, 20)); // NOI18N
         txtTm.setHorizontalAlignment(javax.swing.JTextField.CENTER);
+        txtTm.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyTyped(java.awt.event.KeyEvent evt) {
+                txtTmKeyTyped(evt);
+            }
+        });
 
         txtUas.setFont(new java.awt.Font("Tahoma", 1, 20)); // NOI18N
         txtUas.setHorizontalAlignment(javax.swing.JTextField.CENTER);
         txtUas.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 txtUasActionPerformed(evt);
+            }
+        });
+        txtUas.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyTyped(java.awt.event.KeyEvent evt) {
+                txtUasKeyTyped(evt);
             }
         });
 
@@ -260,8 +280,18 @@ public class PenentuNilaiMahasiswa extends javax.swing.JFrame {
         });
 
         btnBersih.setText("Bersihkan");
+        btnBersih.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnBersihActionPerformed(evt);
+            }
+        });
 
         btnSimpan.setText("Simpan");
+        btnSimpan.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnSimpanActionPerformed(evt);
+            }
+        });
 
         btnExit.setText("Exit");
 
@@ -361,6 +391,50 @@ public class PenentuNilaiMahasiswa extends javax.swing.JFrame {
            lblhasil.setText(hasil[1]);
        }
     }//GEN-LAST:event_btnHitungActionPerformed
+
+    private void btnBersihActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnBersihActionPerformed
+        // TODO add your handling code here:
+        txtNama.setText(""); 
+        txtUts.setText(""); 
+        txtTm.setText("");
+        txtUas.setText("");
+        lblnama.setText("");
+        lblrata.setText("");
+        lblhasil.setText("");
+        lblgrade.setText("");
+    }//GEN-LAST:event_btnBersihActionPerformed
+
+    private void txtUtsKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtUtsKeyTyped
+        // TODO add your handling code here:
+        Filter.digitFilter(evt);
+    }//GEN-LAST:event_txtUtsKeyTyped
+
+    private void txtTmKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtTmKeyTyped
+        // TODO add your handling code here:
+        Filter.digitFilter(evt);
+    }//GEN-LAST:event_txtTmKeyTyped
+
+    private void txtUasKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtUasKeyTyped
+        // TODO add your handling code here:
+        Filter.digitFilter(evt);
+    }//GEN-LAST:event_txtUasKeyTyped
+
+    private void btnSimpanActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSimpanActionPerformed
+        // TODO add your handling code here:
+        try {
+            BufferedWriter out = new BufferedWriter(new FileWriter("nilaimhs.txt"));
+            String data = "====== NILAI MAHASISWA ======"+'\n'+
+                          "Nama Lengkap : "+lblnama.getText()+'\n'+
+                          "Nilai Rata-rata : "+lblrata.getText()+'\n'+
+                          "Grade : "+lblgrade.getText()+'\n'+
+                          "Hasil : "+lblhasil.getText()+'\n';
+            
+                    out.write(data);
+                    JOptionPane.showMessageDialog(null, "Data berhasil disimpan");
+                    out.close();
+        } catch (Exception e) {
+        }
+    }//GEN-LAST:event_btnSimpanActionPerformed
 
     /**
      * @param args the command line arguments
