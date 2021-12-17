@@ -20,14 +20,14 @@ public class Application {
     public static void main(String[] args) throws SQLException {
         new ConfigDB().getConnect();
         
-        String[] F = {"KodeFilm","Judul","Genre","Tahun","Asal","Stok"};        
-        String[] V = {"09","Avengers","Actions","2010","ID","22"};
-
-        
+        String[] F = {"Judul","Genre","Tahun","Asal","Stok"};        
+        String[] V = {"Captain","Actions","2010","ID","22"};
+//
+//        
         ConfigDB praktikum = new ConfigDB();
-        System.out.println(praktikum.getDoubleArrays(F, V));
-        praktikum.ubahData("film", "KodeFilm", "F001", F, V);
-        
+//        System.out.println(praktikum.getDoubleArrays(F, V));
+//        praktikum.ubahData("film", "KodeFilm", "01", F, V);
+          System.out.println(String.valueOf(praktikum.TableFills("SELECT*FROM film", 6)));
     }
     
 }

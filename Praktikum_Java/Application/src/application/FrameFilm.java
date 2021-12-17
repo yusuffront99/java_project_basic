@@ -13,13 +13,19 @@ import javax.swing.table.DefaultTableModel;
  * @author myusu
  */
 public class FrameFilm extends javax.swing.JFrame {
-
+    
+    String[] Judul = {"Kode Film","Judul Film","Genre","Tahun","Asal","Stok"};
+    int[] WidthColumnFilm = {120,220,200,100,200,100};
+    String SQL = "SELECT * FROM film";
     /**
      * Creates new form FrameFilm
      */
     public FrameFilm() {
         initComponents();
         setLocationRelativeTo(null);
+        new ConfigDB().setJudulKolom(jtblFilm, Judul);
+        new ConfigDB().setShowTable(jtblFilm, Judul, SQL);
+        new ConfigDB().setWidhtTitColumn(jtblFilm, WidthColumnFilm);
     }
 
     /**
@@ -47,9 +53,15 @@ public class FrameFilm extends javax.swing.JFrame {
         jLabel6 = new javax.swing.JLabel();
         txtStok = new javax.swing.JTextField();
         jScrollPane1 = new javax.swing.JScrollPane();
-        jDataFilms = new javax.swing.JTable();
+        jtblFilm = new javax.swing.JTable();
+        jLabel7 = new javax.swing.JLabel();
+        txtCariData = new javax.swing.JTextField();
+        clear = new javax.swing.JButton();
+        jLabel8 = new javax.swing.JLabel();
+        jButton1 = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        setBackground(new java.awt.Color(102, 154, 251));
 
         jLabel1.setText("Kode Film");
 
@@ -63,10 +75,20 @@ public class FrameFilm extends javax.swing.JFrame {
         jLabel2.setText("Judul");
 
         jUbah.setText("Ubah");
+        jUbah.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jUbahActionPerformed(evt);
+            }
+        });
 
         jLabel3.setText("Genre");
 
         jHapus.setText("Hapus");
+        jHapus.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jHapusActionPerformed(evt);
+            }
+        });
 
         jLabel4.setText("Tahun");
 
@@ -74,7 +96,7 @@ public class FrameFilm extends javax.swing.JFrame {
 
         jLabel6.setText("Stok");
 
-        jDataFilms.setModel(new javax.swing.table.DefaultTableModel(
+        jtblFilm.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
                 {null, null, null, null},
                 {null, null, null, null},
@@ -85,99 +107,141 @@ public class FrameFilm extends javax.swing.JFrame {
                 "Title 1", "Title 2", "Title 3", "Title 4"
             }
         ));
-        jDataFilms.addMouseListener(new java.awt.event.MouseAdapter() {
+        jtblFilm.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
-                jDataFilmsMouseClicked(evt);
+                jtblFilmMouseClicked(evt);
             }
         });
-        jDataFilms.addComponentListener(new java.awt.event.ComponentAdapter() {
+        jtblFilm.addComponentListener(new java.awt.event.ComponentAdapter() {
             public void componentShown(java.awt.event.ComponentEvent evt) {
-                jDataFilmsComponentShown(evt);
+                jtblFilmComponentShown(evt);
             }
         });
-        jScrollPane1.setViewportView(jDataFilms);
+        jScrollPane1.setViewportView(jtblFilm);
+
+        jLabel7.setText("Search Data");
+
+        txtCariData.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyPressed(java.awt.event.KeyEvent evt) {
+                txtCariDataKeyPressed(evt);
+            }
+        });
+
+        clear.setText("clear");
+        clear.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                clearActionPerformed(evt);
+            }
+        });
+
+        jLabel8.setFont(new java.awt.Font("Tahoma", 1, 24)); // NOI18N
+        jLabel8.setText("FORM DATA FILM");
+
+        jButton1.setIcon(new javax.swing.ImageIcon("C:\\Users\\myusu\\OneDrive\\Dokumen\\Gambar\\ICONS\\printer.png")); // NOI18N
+        jButton1.setText("PRINT");
+        jButton1.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton1ActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+            .addGroup(layout.createSequentialGroup()
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(layout.createSequentialGroup()
-                        .addContainerGap()
-                        .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 582, Short.MAX_VALUE))
-                    .addGroup(layout.createSequentialGroup()
-                        .addGap(28, 28, 28)
+                        .addGap(31, 31, 31)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                            .addComponent(jLabel1)
-                            .addComponent(jLabel2)
-                            .addComponent(jLabel3)
-                            .addComponent(jLabel4)
-                            .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                .addComponent(jLabel5)
-                                .addComponent(jLabel6)))
-                        .addGap(38, 38, 38)
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                            .addComponent(txtKodeFilm)
-                            .addComponent(txtJudul)
-                            .addComponent(txtGenre)
-                            .addComponent(txtTahun)
-                            .addComponent(txtAsal)
-                            .addComponent(txtStok, javax.swing.GroupLayout.DEFAULT_SIZE, 300, Short.MAX_VALUE))
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addGroup(layout.createSequentialGroup()
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                                .addComponent(jUbah, javax.swing.GroupLayout.PREFERRED_SIZE, 123, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                .addComponent(jLabel7)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                                .addComponent(txtCariData, javax.swing.GroupLayout.PREFERRED_SIZE, 300, javax.swing.GroupLayout.PREFERRED_SIZE))
                             .addGroup(layout.createSequentialGroup()
+                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                                    .addComponent(jLabel1)
+                                    .addComponent(jLabel2)
+                                    .addComponent(jLabel3)
+                                    .addComponent(jLabel4)
+                                    .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                        .addComponent(jLabel5)
+                                        .addComponent(jLabel6)))
                                 .addGap(38, 38, 38)
                                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                    .addComponent(jSimpan, javax.swing.GroupLayout.PREFERRED_SIZE, 123, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                    .addComponent(jHapus, javax.swing.GroupLayout.PREFERRED_SIZE, 123, javax.swing.GroupLayout.PREFERRED_SIZE))))))
-                .addContainerGap())
+                                    .addComponent(clear, javax.swing.GroupLayout.PREFERRED_SIZE, 180, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                    .addGroup(layout.createSequentialGroup()
+                                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                                            .addComponent(txtKodeFilm)
+                                            .addComponent(txtJudul)
+                                            .addComponent(txtGenre)
+                                            .addComponent(txtTahun)
+                                            .addComponent(txtAsal)
+                                            .addComponent(txtStok, javax.swing.GroupLayout.PREFERRED_SIZE, 300, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                        .addGap(18, 18, 18)
+                                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                                            .addComponent(jSimpan, javax.swing.GroupLayout.PREFERRED_SIZE, 123, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                            .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                                                .addComponent(jHapus, javax.swing.GroupLayout.PREFERRED_SIZE, 123, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                                .addComponent(jUbah, javax.swing.GroupLayout.PREFERRED_SIZE, 123, javax.swing.GroupLayout.PREFERRED_SIZE)))))
+                                .addGap(35, 35, 35)
+                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                    .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 706, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                    .addComponent(jButton1, javax.swing.GroupLayout.PREFERRED_SIZE, 194, javax.swing.GroupLayout.PREFERRED_SIZE)))))
+                    .addGroup(layout.createSequentialGroup()
+                        .addGap(509, 509, 509)
+                        .addComponent(jLabel8)))
+                .addContainerGap(45, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
+                .addContainerGap()
+                .addComponent(jLabel8)
+                .addGap(26, 26, 26)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(txtCariData, javax.swing.GroupLayout.PREFERRED_SIZE, 44, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jLabel7))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(layout.createSequentialGroup()
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                                .addContainerGap()
-                                .addComponent(jLabel1)
-                                .addGap(33, 33, 33))
-                            .addGroup(layout.createSequentialGroup()
-                                .addGap(62, 62, 62)
-                                .addComponent(jSimpan, javax.swing.GroupLayout.PREFERRED_SIZE, 44, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)))
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                            .addComponent(jUbah, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.PREFERRED_SIZE, 44, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(jLabel2, javax.swing.GroupLayout.Alignment.LEADING))
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(jHapus, javax.swing.GroupLayout.PREFERRED_SIZE, 44, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(jLabel3))
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(jLabel1)
+                        .addGap(33, 33, 33)
+                        .addComponent(jLabel2)
+                        .addGap(33, 33, 33)
+                        .addComponent(jLabel3)
+                        .addGap(33, 33, 33)
                         .addComponent(jLabel4)
                         .addGap(33, 33, 33)
                         .addComponent(jLabel5)
                         .addGap(28, 28, 28)
                         .addComponent(jLabel6))
+                    .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 386, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addGroup(layout.createSequentialGroup()
-                        .addGap(62, 62, 62)
-                        .addComponent(txtKodeFilm, javax.swing.GroupLayout.PREFERRED_SIZE, 44, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(txtJudul, javax.swing.GroupLayout.PREFERRED_SIZE, 44, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(txtGenre, javax.swing.GroupLayout.PREFERRED_SIZE, 44, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addGroup(layout.createSequentialGroup()
+                                .addComponent(txtKodeFilm, javax.swing.GroupLayout.PREFERRED_SIZE, 44, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addComponent(txtJudul, javax.swing.GroupLayout.PREFERRED_SIZE, 44, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addComponent(txtGenre, javax.swing.GroupLayout.PREFERRED_SIZE, 44, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addGroup(layout.createSequentialGroup()
+                                .addComponent(jSimpan, javax.swing.GroupLayout.PREFERRED_SIZE, 44, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addComponent(jUbah, javax.swing.GroupLayout.PREFERRED_SIZE, 44, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                                .addComponent(jHapus, javax.swing.GroupLayout.PREFERRED_SIZE, 44, javax.swing.GroupLayout.PREFERRED_SIZE)))
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(txtTahun, javax.swing.GroupLayout.PREFERRED_SIZE, 44, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(txtAsal, javax.swing.GroupLayout.PREFERRED_SIZE, 44, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(txtStok, javax.swing.GroupLayout.PREFERRED_SIZE, 44, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 74, Short.MAX_VALUE)
-                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 189, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap())
+                        .addComponent(txtStok, javax.swing.GroupLayout.PREFERRED_SIZE, 44, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(18, 18, 18)
+                        .addComponent(clear, javax.swing.GroupLayout.PREFERRED_SIZE, 43, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                .addGap(18, 18, 18)
+                .addComponent(jButton1, javax.swing.GroupLayout.PREFERRED_SIZE, 61, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
         pack();
@@ -185,6 +249,7 @@ public class FrameFilm extends javax.swing.JFrame {
 
     private void jSimpanActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jSimpanActionPerformed
         // TODO add your handling code here:
+        //Empty Data Validations
         if(txtKodeFilm.getText().equals("")){
             JOptionPane.showMessageDialog(null, "Kode Film Belum Diisi");
             txtKodeFilm.requestFocus();
@@ -205,9 +270,9 @@ public class FrameFilm extends javax.swing.JFrame {
             txtStok.requestFocus();
         }
         
-        //----------- VALIDATIONS
+        //----------- VALIDATIONS double kode film
         else if(new ConfigDB().getDupKey("film", "KodeFilm", txtKodeFilm.getText())){
-        JOptionPane.showMessageDialog(null, "Kode Film SUdah terdaftar");
+        JOptionPane.showMessageDialog(null, "Kode Film Sudah terdaftar");
         }else{
         //------------ SAVE DATA
         String[] F = {"KodeFilm","Judul","Genre","Tahun","Asal","Stok"}; 
@@ -215,18 +280,77 @@ public class FrameFilm extends javax.swing.JFrame {
         
         new ConfigDB().simpanData("film", F, V);
         JOptionPane.showMessageDialog(null, "Saved Successfully");
+        new ConfigDB().setJudulKolom(jtblFilm, Judul);
+        new ConfigDB().setShowTable(jtblFilm, Judul, SQL);
+        new ConfigDB().setWidhtTitColumn(jtblFilm, WidthColumnFilm);
         }
     }//GEN-LAST:event_jSimpanActionPerformed
 
-    private void jDataFilmsMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jDataFilmsMouseClicked
+    private void jtblFilmMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jtblFilmMouseClicked
         // TODO add your handling code here:
-        
-    }//GEN-LAST:event_jDataFilmsMouseClicked
+        int row = jtblFilm.getSelectedRow();
+        txtKodeFilm.setText(jtblFilm.getModel().getValueAt(row, 0).toString());
+        txtJudul.setText(jtblFilm.getModel().getValueAt(row, 1).toString());
+        txtGenre.setText(jtblFilm.getModel().getValueAt(row, 2).toString());
+        txtTahun.setText(jtblFilm.getModel().getValueAt(row, 3).toString());
+        txtAsal.setText(jtblFilm.getModel().getValueAt(row, 4).toString());
+        txtStok.setText(jtblFilm.getModel().getValueAt(row, 5).toString());            
+    }//GEN-LAST:event_jtblFilmMouseClicked
 
-    private void jDataFilmsComponentShown(java.awt.event.ComponentEvent evt) {//GEN-FIRST:event_jDataFilmsComponentShown
+    private void jtblFilmComponentShown(java.awt.event.ComponentEvent evt) {//GEN-FIRST:event_jtblFilmComponentShown
         // TODO add your handling code here:
         
-    }//GEN-LAST:event_jDataFilmsComponentShown
+    }//GEN-LAST:event_jtblFilmComponentShown
+
+    private void jUbahActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jUbahActionPerformed
+        // TODO add your handling code here:
+        String tKode = txtKodeFilm.getText();
+        String tJudul = txtJudul.getText();
+        String tGenre = txtGenre.getText();
+        String tTahun = txtTahun.getText();
+        String tAsal = txtAsal.getText();
+        String tStok = txtStok.getText();
+        
+        String[] Fields = {"Judul","Genre","Tahun","Asal","Stok"};
+        String[] Values = {tJudul, tGenre, tTahun, tAsal, tStok};
+        
+        new ConfigDB().ubahData("film", "KodeFilm", tKode, Fields, Values);
+        new ConfigDB().setJudulKolom(jtblFilm, Judul);
+        new ConfigDB().setShowTable(jtblFilm, Judul, SQL);
+        new ConfigDB().setWidhtTitColumn(jtblFilm, WidthColumnFilm);
+    }//GEN-LAST:event_jUbahActionPerformed
+
+    private void jHapusActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jHapusActionPerformed
+        // TODO add your handling code here:
+        String tKode = txtKodeFilm.getText();
+        new ConfigDB().HapusDinamis("film", "KodeFilm", tKode);
+        new ConfigDB().setJudulKolom(jtblFilm, Judul);
+        new ConfigDB().setShowTable(jtblFilm, Judul, SQL);
+        new ConfigDB().setWidhtTitColumn(jtblFilm, WidthColumnFilm);
+    }//GEN-LAST:event_jHapusActionPerformed
+
+    private void txtCariDataKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtCariDataKeyPressed
+        // TODO add your handling code here:
+        String SQL = "SELECT * FROM film WHERE KodeFilm LIKE '%"+txtCariData.getText()+"%' OR Judul LIKE '%"+txtCariData.getText()+"%'";
+        new ConfigDB().setJudulKolom(jtblFilm, Judul);
+        new ConfigDB().DataSearch(jtblFilm, Judul, SQL);
+        new ConfigDB().setWidhtTitColumn(jtblFilm, WidthColumnFilm);
+    }//GEN-LAST:event_txtCariDataKeyPressed
+
+    private void clearActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_clearActionPerformed
+        // TODO add your handling code here:
+        txtKodeFilm.setText("");
+        txtJudul.setText("");
+        txtGenre.setText("");
+        txtTahun.setText("");
+        txtAsal.setText("");
+        txtStok.setText("");
+    }//GEN-LAST:event_clearActionPerformed
+
+    private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
+        // TODO add your handling code here:
+        new ConfigDB().ReportShow("src/praktikum/reportFilm.jrxml", "SELECT * FROM film");
+    }//GEN-LAST:event_jButton1ActionPerformed
 
     /**
      * @param args the command line arguments
@@ -264,7 +388,8 @@ public class FrameFilm extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JTable jDataFilms;
+    private javax.swing.JButton clear;
+    private javax.swing.JButton jButton1;
     private javax.swing.JButton jHapus;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
@@ -272,10 +397,14 @@ public class FrameFilm extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel4;
     private javax.swing.JLabel jLabel5;
     private javax.swing.JLabel jLabel6;
+    private javax.swing.JLabel jLabel7;
+    private javax.swing.JLabel jLabel8;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JButton jSimpan;
     private javax.swing.JButton jUbah;
+    private javax.swing.JTable jtblFilm;
     private javax.swing.JTextField txtAsal;
+    private javax.swing.JTextField txtCariData;
     private javax.swing.JTextField txtGenre;
     private javax.swing.JTextField txtJudul;
     private javax.swing.JTextField txtKodeFilm;

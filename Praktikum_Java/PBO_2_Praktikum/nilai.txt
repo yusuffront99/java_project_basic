@@ -1,0 +1,4 @@
+Nama:ahmad
+Nilai Rata-rata:75.0
+Grade:B
+Hasil:Lulus

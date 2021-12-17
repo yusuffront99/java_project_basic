@@ -13,8 +13,20 @@ import java.sql.Statement;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import javax.swing.JOptionPane;
-import javax.swing.*;
-
+import javax.swing.JTable;
+//set witdh column
+import javax.swing.table.TableColumn;
+import java.io.File;
+import javax.swing.DefaultComboBoxModel;
+import javax.swing.table.DefaultTableModel;
+import net.sf.jasperreports.engine.JasperCompileManager; 
+import net.sf.jasperreports.engine.JasperFillManager; 
+import net.sf.jasperreports.engine.JasperPrint;
+import net.sf.jasperreports.engine.JasperReport;
+import net.sf.jasperreports.engine.design.JRDesignQuery; 
+import net.sf.jasperreports.engine.design.JasperDesign; 
+import net.sf.jasperreports.engine.xml.JRXmlLoader;  
+import net.sf.jasperreports.view.JasperViewer;
 /**
  *
  * @author myusu
@@ -77,6 +89,8 @@ public class ConfigDB {
             System.out.println(e.toString());
         }
     }
+    
+    
     
     //==== INSERT DATA DINAMIS PREPARED
     public void SimpanFilmPrepared(String KodeFilm, String Judul, String Genre, int Tahun, String Asal, int Stok){
@@ -168,6 +182,8 @@ public class ConfigDB {
         }
     }
     
+    
+   
     //================ END INSERT DATA
     
    
@@ -204,7 +220,105 @@ public class ConfigDB {
     }
     //================ END UPDATE DATA
     
+    //================ DELETE DATA
+   
+    //================================================================ SHOW DATABASE TO TABLE ===================================================
+    //===========================================================================================================================================
     
-    //================ SHOW DATABASE TO TABLE
+    //**************** METHOD TABLES
+    public void setJudulKolom(JTable Table, String[] JudulKolom){
+        try {
+            DefaultTableModel model = new DefaultTableModel();
+            Table.setModel(model);
+            model.getDataVector().removeAllElements();
+            model.fireTableDataChanged();
+            
+            for (int i = 0; i < JudulKolom.length; i++) {
+                model.addColumn(JudulKolom[i]);
+            }
+        } catch (Exception e) {
+            System.out.println(e.toString());
+        }
+    }
+    
+    //-----------------------------------------------
+    public void setWidhtTitColumn(JTable Table, int[] WidthColumnTo){
+        try {
+            TableColumn ColumnTo = new TableColumn();
+            Table.setAutoResizeMode(javax.swing.JTable.AUTO_RESIZE_OFF);
+            
+            for (int i = 0; i < WidthColumnTo.length; i++) {
+                ColumnTo = Table.getColumnModel().getColumn(i);
+                ColumnTo.setPreferredWidth(WidthColumnTo[i]);
+            }
+        } catch (Exception e) {
+            System.out.println(e.toString());
+        }
+    }
+    
+    //---------------------- OBJECT CONVERTION 
+    public Object[][] TableFills(String SQL, int nColumns){
+        Object[][] data = null;
+        
+        try {
+            Statement command = getConnect().createStatement();
+            ResultSet dataset = command.executeQuery(SQL);
+            dataset.last();
+            int nRows = dataset.getRow();
+            dataset.beforeFirst();
+            
+            int j = 0;
+            data = new Object[nRows][nColumns];
+            while (dataset.next()) {                
+                for (int i = 0; i < nColumns; i++) {
+                    data[j][i] = dataset.getString(i+1);
+                }
+                j++;
+            }
+        } catch (Exception e) {
+            System.out.println(e.toString());
+        }
+        
+        return data;
+    }
+    
+    //---------------------- CATCH 
+    public void setShowTable(JTable Table, String[] Title, String SQL){
+        try {
+            Table.setModel(new DefaultTableModel(TableFills(SQL, Title.length), Title));
+        } catch (Exception e) {
+            System.out.println(e.toString());
+        }
+    }
+    
+    //---------------------- DATA SEARCH
+    public void DataSearch(JTable Table, String[] TitleColumn, String SQLSearch){
+        try {
+            Table.setModel(new DefaultTableModel(TableFills(SQLSearch, TitleColumn.length),TitleColumn));
+        } catch (Exception e) {
+            System.out.println(e.toString());
+        }
+    }
+    
+    //----------------------- PRINT DATA SHOW REPORT
+        public void ReportShow(String laporanFile, String SQL){
+        try {
+            File file = new File(laporanFile);
+            JasperDesign jasDes = JRXmlLoader.load(file);
+
+             JRDesignQuery sqlQuery = new JRDesignQuery();
+             sqlQuery.setText(SQL);
+             jasDes.setQuery(sqlQuery);
+
+             JasperReport JR = JasperCompileManager.compileReport(jasDes);
+             JasperPrint JP = JasperFillManager.fillReport(JR,null,getConnect()); 
+             JasperViewer.viewReport(JP);
+           } catch (Exception e) {
+              JOptionPane.showMessageDialog(null,e.toString());       
+
+        }
+     }
+        
+    
    
 }
